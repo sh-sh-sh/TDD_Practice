@@ -22,19 +22,18 @@ public class KimbobHeaven {
         return CASH;
     }
 
-    public static void setCASH(int CASH) {
-        KimbobHeaven.CASH = CASH;
-    }
-
+    //메뉴판에 메뉴를 세팅해준다
     public static void prepareMenu() {
         MENU.add(new Food("김밥", 2500));
         MENU.add(new Food("라면", 3500));
     }
 
+    //메뉴판 전체 돌면서 출력
     public static void printMenu() {
         MENU.forEach(food -> System.out.println(food.toString()));
     }
 
+    //주문받기
     private static void getOrder() {
         printMenu();
         System.out.println("주문하실 메뉴명을 입력해주세요. 취소를 입력하면 종료됩니다.");
@@ -53,6 +52,7 @@ public class KimbobHeaven {
         }
     }
 
+    //주문받은 메뉴가 메뉴판에 존재하는지 확인해서 있으면 해당 음식 리턴, 없으면 예외 발생시키기
     public static Food doOrder(String orderedName) throws NotMenuException {
         final Optional<Food> orderedFoodOptional = MENU.stream().filter(food -> food.getName().equals(orderedName)).findFirst();
         if (orderedFoodOptional.isPresent()) {
@@ -62,6 +62,7 @@ public class KimbobHeaven {
         }
     }
 
+    //주문 금액에 따른 돈 받기
     private static void getPayment(Food food) {
         System.out.printf("%s(을)를 주문하였습니다. %d원을 지불해주세요.\n", food.getName(), food.getCost());
         System.out.println("(*마이너스 금액을 입력하면 주문이 취소됩니다.)");
@@ -79,6 +80,7 @@ public class KimbobHeaven {
          getOrder();
     }
 
+    //받은 돈 계산해서 거스름돈 줘야하면 주고 가게 총 매출에 더하기
     public static void doCalculate(Food food, int payment) throws LackOfMoneyException {
         if (payment == food.getCost()) {
             System.out.println("주문이 완료되었습니다. 이용해주셔서 감사합니다.");

@@ -22,6 +22,7 @@ public class HeavenTest {
 
     @Test
     void menuTest() {
+        //총 메뉴의 수가 0이 아니면 성공
         assertNotEquals(0, KimbobHeaven.MENU.size());
         KimbobHeaven.printMenu();
         System.out.println("메뉴 테스트 성공");
@@ -29,25 +30,28 @@ public class HeavenTest {
 
     @Test
     void orderTest() throws NotMenuException {
-        KimbobHeaven.prepareMenu();
-        Assertions.assertThrows(Exception.class, () -> {
-            KimbobHeaven.doOrder("없는메뉴");
+        //없는 메뉴를 주문하면 익셉션 발생
+        Assertions.assertThrows(NotMenuException.class, () -> {
+            KimbobHeaven.doOrder("환상의스페셜김치볶음밥");
         });
 
+        //첫번째 메뉴의 음식과 주문한 음식이 동일한지 체크
         assertEquals(KimbobHeaven.MENU.get(0), KimbobHeaven.doOrder(KimbobHeaven.MENU.get(0).getName()));
         System.out.println("주문 테스트 성공");
     }
 
     @Test
     void calculateTest() throws LackOfMoneyException {
-        KimbobHeaven.prepareMenu();
+        //돈을 모자라게 지불하면 예외 발생
         Assertions.assertThrows(LackOfMoneyException.class, () -> {
             KimbobHeaven.doCalculate(KimbobHeaven.MENU.get(0), 10);
         });
 
+        //첫번째 메뉴와 두번째 메뉴 주문
         KimbobHeaven.doCalculate(KimbobHeaven.MENU.get(0), KimbobHeaven.MENU.get(0).getCost());
         KimbobHeaven.doCalculate(KimbobHeaven.MENU.get(1), KimbobHeaven.MENU.get(1).getCost() + 3000);
 
+        //첫번째메뉴+두번째메뉴 값 합이 가게에 있는 총 매출과 동일한지 체크
         final int expectCash = KimbobHeaven.MENU.get(0).getCost() + KimbobHeaven.MENU.get(1).getCost();
         assertEquals(expectCash, KimbobHeaven.getCASH());
         System.out.println("계산 테스트 성공");
