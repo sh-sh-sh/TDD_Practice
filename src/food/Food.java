@@ -1,12 +1,15 @@
 package food;
 
 public class Food {
-    private final String name;
-    private final int cost;
+    protected String name;
+    protected int cost;
 
     public Food(String name, int cost) {
         this.name = name;
         this.cost = cost;
+    }
+
+    public Food() {
     }
 
     @Override
@@ -21,4 +24,5 @@ public class Food {
     public int getCost() {
         return cost;
     }
+
 }
