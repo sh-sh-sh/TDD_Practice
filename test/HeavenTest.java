@@ -109,6 +109,7 @@ public class HeavenTest {
     /**
      * 홀에 주문을 하면 키친에서 홀로 준 음식을 홀에서 리턴한다.
      */
+
 //    @Test
 //    void kitchenTest() throws NotMenuException {
 //        heaven.getHall().doOrder(heaven.getHall().getMenu().get(0).getName());
