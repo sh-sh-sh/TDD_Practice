@@ -25,7 +25,7 @@ public class KimbobHeaven {
         }
     }
 
-    public void prepare() throws IncorrectStaffException {
+    private void prepare() throws IncorrectStaffException {
         prepareStaff();
         kitchen.prepare();
         hall.prepare();
